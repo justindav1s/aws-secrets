@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Federated": "arn:aws:iam::005459661421:oidc-provider/api.sno.openshiftlabs.net:6443"
+      },
+      "Action": "sts:AssumeRoleWithWebIdentity",
+      "Condition": {
+        "StringEquals": {
+          "api.sno.openshiftlabs.net:6443:sub": "system:serviceaccount:aws-secrets-test:aws-secrets-service-account",
+          "api.sno.openshiftlabs.net:6443:aud": "sts.amazonaws.com"
+        }
+      }
+    }
+  ]
+}

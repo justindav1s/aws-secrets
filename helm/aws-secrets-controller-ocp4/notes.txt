@@ -1,0 +1,43 @@
+# Install
+
+https://aws.amazon.com/blogs/containers/aws-secrets-controller-poc/
+
+
+helm install aws-secrets-controller ../aws-secretsaws-secrets-controller-ocp4
+
+```
+justin@Justins-MacBook-Pro bin % aws secretsmanager list-secrets
+{
+    "SecretList": []
+}
+justin@Justins-MacBook-Pro bin % aws secretsmanager list-secrets
+{
+    "SecretList": [
+        {
+            "ARN": "arn:aws:secretsmanager:eu-west-1:005459661421:secret:test_secret-la7Owy",
+            "Name": "test_secret",
+            "LastChangedDate": "2021-10-25T14:19:06.290000+01:00",
+            "Tags": [],
+            "SecretVersionsToStages": {
+                "8153c000-63d0-4c56-bfc1-db0e5213335f": [
+                    "AWSCURRENT"
+                ]
+            },
+            "CreatedDate": "2021-10-25T14:19:06.117000+01:00"
+        }
+    ]
+}
+
+```
+
+```
+aws iam create-policy --policy-name test-secret-policy --policy-document file://policy.json
+```
+
+run trust.sh
+
+```
+aws iam create-role --role-name aws-secrets-role --assume-role-policy-document file://trust.json --description "IAM Role to access aws secret"
+```
+
+aws iam attach-role-policy --role-name aws-secrets-role --policy-arn=arn:aws:iam::005459661421:policy/testsecret-policy
